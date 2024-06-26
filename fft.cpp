@@ -4,7 +4,7 @@
 
 std::pair <double, double> * fft (std::pair <double, double> * x, int N);\
 void bitRevArr(std::pair <double, double> * x, int N);
-void butterfly(std::pair <double, double> * x, int N, int i, int j, int k);
+void butterfly(std::pair <double, double> * x, int i, int j, int k);
 
 int main(int argc, char * argv[]) {
     if (argc != 3) {
@@ -52,7 +52,7 @@ std::pair <double, double> * fft (std::pair <double, double> * x, int N) {
 
         for (int j = 0; j < blocks; j++) {
             for (int k = 0; k < range; k++) {
-                butterfly(x, N, range, j, k);
+                butterfly(x, range, j, k);
             }
         }
     }
@@ -82,9 +82,10 @@ void bitRevArr(std::pair <double, double> * x, int N) {
     delete [] temp;
 }
 
-void butterfly(std::pair <double, double> * x, int N, int range, int j, int k) {
+void butterfly(std::pair <double, double> * x, int range, int j, int k) {
     int index = j * range * 2 + k;
     int index1 = index + range;
+    int N = range * 2;
 
     std::pair <double, double> w;
     w.first = cos(2 * M_PI * k / N);
